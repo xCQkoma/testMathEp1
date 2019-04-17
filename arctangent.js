@@ -6,16 +6,28 @@ window.onload = function(){
       arrowX = width /2,
       arrowY = height/2,
       dx,dy,
-      angle = 0;
+      tAngle = 0,
+      xRadius = 200,
+      yRadius =400,
+      xangle = 0,
+      yangle =0,
+      xspeed = .04,
+      yspeed =.05,
+      x,y;
+      
 
   render();
 
   function render(){
     context.clearRect(0, 0, width, height);
 
+    x = arrowX + Math.cos(xangle)*xRadius;
+    y= arrowY + Math.sin(yangle)*yRadius;
+
     context.save();
-    context.translate(arrowX,arrowY);
-    context.rotate(angle);
+    context.translate(x,y);
+    
+    context.rotate(tAngle);
 
     context.beginPath();
     context.moveTo(20,0);
@@ -27,6 +39,10 @@ window.onload = function(){
     context.stroke();
 
     context.restore();
+    
+    xangle += xspeed;
+    yangle += yspeed;
+
     requestAnimationFrame(render);
     
   }
@@ -34,6 +50,6 @@ window.onload = function(){
   document.body.addEventListener("mousemove",function(event){
     dx = event.clientX - arrowX;
     dy = event.clientY - arrowY;
-    angle = Math.atan2(dy,dx)
+    tAngle = Math.atan2(dy,dx)
   });
 }
